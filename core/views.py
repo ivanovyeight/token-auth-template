@@ -21,13 +21,29 @@ def register(request):
         token = Token.objects.create(user=user, body=uuid.uuid4())
         send_mail(
             'Your registration is complete!',
-            f'Your registration is complete! Your invite link: localhost:8000/login/{token.body}',
+            f'Your registration is complete! Your invite link: localhost:8000/login/token/{token.body}',
             'admin@admin.com',
             [user.email],
         )
         return redirect("/")
 
-def login(request, token):
+def send_login_link(request):
+    if request.method == "GET":
+        return render(request, "pages/login.html")
+
+    if request.method == "POST":
+        user = User.objects.get(email=request.POST["email"])
+        # return HttpResponse(user)
+        token = user.token.body
+        send_mail(
+            'Login link',
+            f'Your login link: localhost:8000/login/token/{token}',
+            'admin@admin.com',
+            [user.email],
+        )
+        return redirect("/")
+
+def login_with_token(request, token):
     if request.method == "GET":
         try:
             token = Token.objects.get(body=token)
