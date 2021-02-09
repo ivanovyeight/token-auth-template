@@ -1,11 +1,10 @@
 {% extends 'layouts/core.html' %}
 {% block content %}
 <div class="min-h-1/2 flex items-center justify-center bg-gray-200 font-bold fill">
-    <span class="mr-2">CREATE ACCOUNT:</span>
-    <form method="POST" action="/register/">
+    <span class="mr-2">LOGIN:</span>
+    <form method="POST" action="/send-login-link/">
     {% csrf_token %}
         <input class="p-4 my-2 border-2 border-gray-400 font-bold rounded-md focus:outline-none shadow-lg" name="email" placeholder="EMAIL" required>
-        <input class="p-4 my-2 border-2 border-gray-400 font-bold rounded-md focus:outline-none shadow-lg" name="username" placeholder="USERNAME" required>
         <button class="p-4 my-2 border-2 border-gray-400 font-bold bg-green-500 rounded-md hover:bg-gray-100 shadow-lg" type="SUBMIT">CONTINUE</button>
     </form>
 </div>
