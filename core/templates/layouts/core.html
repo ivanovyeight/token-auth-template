@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Token Authentication</title>
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <link href="{% static 'core.css' %}" rel="stylesheet">
+    </head>
+    <body class="bg-gray-200">
+        {% include 'layouts/navbar.html' %}
+        {% block content %}{% endblock %}
+
+        <div class="flex fixed right-0 bottom-0">
+            {% if messages %}
+            <ul class="mr-2 p-4 m-2 bg-gray-300 border-green-500 border-2 shadow-lg rounded-md font-bold">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </body>
+</html>
