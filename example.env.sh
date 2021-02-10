@@ -1,0 +1,4 @@
+export EMAIL_HOST=""
+export EMAIL_HOST_USER=""
+export EMAIL_HOST_PASSWORD=""
+export DEFAULT_FROM_EMAIL=""
