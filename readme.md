@@ -7,6 +7,7 @@
 - . venv/bin/activate
 - pip install -r requirements.txt
 - mv example.env.sh && nano env.sh [set smtp settings]
+- . env.sh
 - python manage.py migrate
 - python manage.py collectstatic
 
