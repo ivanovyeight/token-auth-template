@@ -7,8 +7,10 @@ import uuid
 from config import settings
 
 def index(request):
+    qq = request.build_absolute_uri()
+
     tokens = Token.objects.all()
-    return render(request, 'pages/index.html', { 'tokens': tokens })
+    return render(request, 'pages/index.html', { 'tokens': tokens, 'qq':qq })
 
 def register(request):
     if request.method == "GET":
