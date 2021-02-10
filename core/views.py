@@ -19,7 +19,7 @@ def register(request):
         token = Token.objects.create(user=user, body=uuid.uuid4())
         send_mail(
             'Your registration is complete!',
-            f'Your registration is complete! Your invite link: 168.62.180.202/login/token/{token.body}',
+            f'Your registration is complete! Your invite link: https://tokenauth.ivanovyeight.club/login/token/{token.body}',
             settings.DEFAULT_FROM_EMAIL,
             [user.email],
         )
@@ -35,7 +35,7 @@ def send_login_link(request):
         token = user.token.body
         send_mail(
             'Login link',
-            f'Your login link: 168.62.180.202/login/token/{token}',
+            f'Your login link: https://tokenauth.ivanovyeight.club/login/token/{token}',
             settings.DEFAULT_FROM_EMAIL,
             [user.email],
         )
