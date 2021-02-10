@@ -4,7 +4,6 @@
 <div class="min-h-1/2 grid grid-cols-1 md:grid-cols-3 items-center justify-center bg-gray-200 font-bold ">
     {% for token in tokens %}
     <div class="col">
-    {{qq}}
         <div class="m-2 p-4 w-auto bg-gray-300 border-2 border-gray-400 font-bold rounded-md shadow-lg flex justify-between">
             Email: {{ token.user.email }} <br>
             Token: {{ token.body }} <br> 
@@ -20,6 +19,8 @@
     {% endfor %}
 </div>
 {% else %}
+    {{qq}}
+
 <div class="min-h-1/2 flex items-center justify-center bg-gray-200 font-bold fill">
     Login to get access.
 </div>
