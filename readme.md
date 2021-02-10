@@ -19,21 +19,21 @@ workers="3"
 # Nginx config
 sudo nano /etc/nginx/sites-available/token-auth-template
 
-server {
-    listen 80;
-    server_name 168.62.180.202;
+    server {
+        listen 80;
+        server_name 168.62.180.202;
 
-    location = /favicon.ico { access_log off; log_not_found off; }
+        location = /favicon.ico { access_log off; log_not_found off; }
 
-    location /static {
-        alias /home/vm/projects/token-auth-template/static;
+        location /static {
+            alias /home/vm/projects/token-auth-template/static;
+        }
+
+        location / {
+            include proxy_params;
+            proxy_pass http://0.0.0.0:8000;
+        }
     }
-
-    location / {
-        include proxy_params;
-        proxy_pass http://0.0.0.0:8000;
-    }
-}
 
 cd /etc/nginx/sites-enabled
 sudo ln -s /etc/nginx/sites-available/token-auth-template
