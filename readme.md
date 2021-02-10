@@ -1,17 +1,5 @@
 - mv example.setup.sh setup.sh && nano setup.sh
 - . setup.sh
-<!-- - sudo apt update
-- sudo apt install python3-venv
-- sudo apt install nginx
-
-- cd ~/projects/token-auth-template
-- python3 -m venv venv
-- . venv/bin/activate
-- pip install -r requirements.txt
-- mv example.env.sh && nano env.sh [set smtp settings]
-- . env.sh
-- python manage.py migrate
-- python manage.py collectstatic -->
 
 # Gunicorn config [gunicorn.py]
 - command="~/projects/token-auth-template/venv/bin/gunicorn"
@@ -40,6 +28,6 @@ sudo nano /etc/nginx/sites-available/token-auth-template
 
 - cd /etc/nginx/sites-enabled
 - sudo ln -s /etc/nginx/sites-available/token-auth-template
-
+- sudo systemctl restart nginx
 # Run gunicorn in background
 gunicorn --daemon --config gunicorn.py config.wsgi
