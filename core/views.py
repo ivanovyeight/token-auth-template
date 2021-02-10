@@ -1,10 +1,11 @@
+from django.contrib.auth.models import User, auth
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
-from django.contrib.auth.models import User, auth
 from django.core.mail import send_mail
+from django.contrib import messages
+from config import settings
 from . models import Token
 import uuid
-from config import settings
 
 def index(request):
     tokens = Token.objects.all()
@@ -22,6 +23,7 @@ def register(request):
             settings.DEFAULT_FROM_EMAIL,
             [user.email],
         )
+        messages.info(request, "Welcome! You'll receive email with invite link within 5 minutes!")
         return redirect("/")
 
 def send_login_link(request):
@@ -37,6 +39,7 @@ def send_login_link(request):
             settings.DEFAULT_FROM_EMAIL,
             [user.email],
         )
+        messages.info(request, "Welcome back! You'll receive email with invite link within 5 minutes!")
         return redirect("/")
 
 def login_with_token(request, token):
