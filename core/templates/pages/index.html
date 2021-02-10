@@ -1,8 +1,22 @@
 {% extends 'layouts/core.html' %}
 {% block content %}
 {% if user.is_authenticated %}
-<div class="min-h-1/2 flex items-center justify-center bg-gray-200 font-bold fill">
-    logged in
+<div class="min-h-1/2 grid grid-cols-1 md:grid-cols-3 items-center justify-center bg-gray-200 font-bold ">
+    {% for token in tokens %}
+    <div class="col">
+        <div class="m-2 p-4 w-auto bg-gray-300 border-2 border-gray-400 font-bold rounded-md shadow-lg flex justify-between">
+            Email: {{ token.user.email }} <br>
+            Token: {{ token.body }} <br> 
+            Link Opened Time(s): {{ token.view_count }}
+        </div>
+
+        {% comment %} <form action="/delete-token" method="POST" class="my-auto m-2">
+        {% csrf_token %}
+            <input name="email" value="{{ token.email }}" class="focus:outline-none" hidden>
+            <button class="p-2 w-full font-bold text-center border-2 border-gray-400 bg-gray-300 hover:bg-green-400 rounded-md shadow-lg" type="submit">Delete Token</button>
+        </form> {% endcomment %}
+    </div>
+    {% endfor %}
 </div>
 {% else %}
 <div class="min-h-1/2 flex items-center justify-center bg-gray-200 font-bold fill">
