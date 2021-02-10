@@ -35,8 +35,8 @@ sudo nano /etc/nginx/sites-available/token-auth-template
         }
     }
 
-cd /etc/nginx/sites-enabled
-sudo ln -s /etc/nginx/sites-available/token-auth-template
+- cd /etc/nginx/sites-enabled
+- sudo ln -s /etc/nginx/sites-available/token-auth-template
 
 # Run gunicorn in background
 gunicorn --daemon --config gunicorn.py config.wsgi
