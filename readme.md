@@ -11,7 +11,7 @@ python manage.py migrate
 python manage.py collectstatic
 
 # Gunicorn config [gunicorn.py]
-command="<pre>~/projects/token-auth-template/venv/bin/gunicorn</pre>"
+command="<!--~/projects/token-auth-template/venv/bin/gunicorn-->"
 pythonpath="~/projects/token-auth-template/config"
 bind="0.0.0.0:8000"
 workers="3"
