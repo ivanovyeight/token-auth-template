@@ -128,5 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# ENV Variables
-env.sh
+# Production Setup
+setup.sh
