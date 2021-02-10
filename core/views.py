@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, auth
 from django.core.mail import send_mail
 from . models import Token
 import uuid
-
+from config import settings
 
 def index(request):
     tokens = Token.objects.all()
@@ -19,7 +19,7 @@ def register(request):
         send_mail(
             'Your registration is complete!',
             f'Your registration is complete! Your invite link: localhost:8000/login/token/{token.body}',
-            'admin@admin.com',
+            settings.DEFAULT_FROM_EMAIL,
             [user.email],
         )
         return redirect("/")
@@ -34,7 +34,7 @@ def send_login_link(request):
         send_mail(
             'Login link',
             f'Your login link: localhost:8000/login/token/{token}',
-            'admin@admin.com',
+            settings.DEFAULT_FROM_EMAIL,
             [user.email],
         )
         return redirect("/")
