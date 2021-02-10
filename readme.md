@@ -1,4 +1,4 @@
-- mv example.setup.sh && nano setup.sh [set smtp and save]
+- mv example.setup.sh && nano setup.sh
 - . setup.sh
 <!-- - sudo apt update
 - sudo apt install python3-venv
