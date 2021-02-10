@@ -1,14 +1,14 @@
-sudo apt update
-sudo apt install python3-venv
-sudo apt install nginx
+- sudo apt update
+- sudo apt install python3-venv
+- sudo apt install nginx
 
-cd ~/projects/token-auth-template
-python3 -m venv venv
-. venv/bin/activate
-pip install -r requirements.txt
-mv example.env.sh && nano env.sh [set smtp settings]
-python manage.py migrate
-python manage.py collectstatic
+- cd ~/projects/token-auth-template
+- python3 -m venv venv
+- . venv/bin/activate
+- pip install -r requirements.txt
+- mv example.env.sh && nano env.sh [set smtp settings]
+- python manage.py migrate
+- python manage.py collectstatic
 
 # Gunicorn config [gunicorn.py]
 - command="~/projects/token-auth-template/venv/bin/gunicorn"
