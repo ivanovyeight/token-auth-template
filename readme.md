@@ -1,4 +1,6 @@
-- sudo apt update
+# mv example.setup.sh && nano setup.sh [set smtp and save]
+# . setup.sh
+<!-- - sudo apt update
 - sudo apt install python3-venv
 - sudo apt install nginx
 
@@ -9,7 +11,7 @@
 - mv example.env.sh && nano env.sh [set smtp settings]
 - . env.sh
 - python manage.py migrate
-- python manage.py collectstatic
+- python manage.py collectstatic -->
 
 # Gunicorn config [gunicorn.py]
 - command="~/projects/token-auth-template/venv/bin/gunicorn"
