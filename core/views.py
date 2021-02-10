@@ -1,17 +1,14 @@
 from django.http.response import HttpResponse
 from django.shortcuts import redirect, render
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib.auth.models import auth
-
+from django.contrib.auth.models import User, auth
 from django.core.mail import send_mail
-
 from . models import Token
 import uuid
 
 
 def index(request):
-    return render(request, 'pages/index.html')
+    tokens = Token.objects.all()
+    return render(request, 'pages/index.html', { 'tokens': tokens })
 
 def register(request):
     if request.method == "GET":
@@ -33,7 +30,6 @@ def send_login_link(request):
 
     if request.method == "POST":
         user = User.objects.get(email=request.POST["email"])
-        # return HttpResponse(user)
         token = user.token.body
         send_mail(
             'Login link',
@@ -47,6 +43,9 @@ def login_with_token(request, token):
     if request.method == "GET":
         try:
             token = Token.objects.get(body=token)
+            token.view_count += 1
+            token.save()
+
             user = User.objects.get(pk=token.user.id)
             user.backend = "django.contrib.auth.backends.ModelBackend"
             auth.login(request, user)
@@ -54,10 +53,10 @@ def login_with_token(request, token):
             if user.is_authenticated:
                 return redirect("/")
             else:
-                return HttpResponse("login-failed")
+                return HttpResponse("Login Failed")
 
         except Token.DoesNotExist:
-            return HttpResponse("wrong link")
+            return HttpResponse("Something Is Wrong With Link")
 
 def logout(request):
     auth.logout(request)
