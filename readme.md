@@ -11,10 +11,10 @@ python manage.py migrate
 python manage.py collectstatic
 
 # Gunicorn config [gunicorn.py]
-command="~/projects/token-auth-template/venv/bin/gunicorn"
-pythonpath="~/projects/token-auth-template/config"
-bind="0.0.0.0:8000"
-workers="3"
+- command="~/projects/token-auth-template/venv/bin/gunicorn"
+- pythonpath="~/projects/token-auth-template/config"
+- bind="0.0.0.0:8000"
+- workers="3"
 
 # Nginx config
 sudo nano /etc/nginx/sites-available/token-auth-template
