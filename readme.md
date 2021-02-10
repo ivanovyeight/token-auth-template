@@ -1,5 +1,5 @@
-# mv example.setup.sh && nano setup.sh [set smtp and save]
-# . setup.sh
+- mv example.setup.sh && nano setup.sh [set smtp and save]
+- . setup.sh
 <!-- - sudo apt update
 - sudo apt install python3-venv
 - sudo apt install nginx
