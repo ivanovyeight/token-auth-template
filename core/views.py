@@ -14,9 +14,13 @@ def index(request):
 def register(request):
     if request.method == "GET":
         return render(request, 'pages/register.html')
+
     if request.method == "POST":
-        try:
-            user = User.objects.get(email=request.POST["email"])
+        if User.objects.filter(email=request.POST["email"]).exists():
+            messages.info(request, "Email already registered.")
+            return redirect("/")
+        else:
+            # user = User.objects.get(email=request.POST["email"])
             user = User.objects.create(username=request.POST["username"], email=request.POST["email"])
             token = Token.objects.create(user=user, body=uuid.uuid4())
             send_mail(
@@ -27,9 +31,6 @@ def register(request):
                 [user.email],
             )
             messages.info(request, "Welcome! You'll receive email with invite link within 5 minutes!")
-            return redirect("/")
-        except:
-            messages.info(request, "This email is already registered.")
             return redirect("/")
 
 def send_login_link(request):
