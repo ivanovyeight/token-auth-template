@@ -12,7 +12,7 @@ sudo nano /etc/nginx/sites-available/token-auth-template
 
     server {
         listen 80;
-        server_name 168.62.180.202;
+        server_name tokenauth.ivanovyeight.club www.tokenauth.ivanovyeight.club;
 
         location = /favicon.ico { access_log off; log_not_found off; }
 
