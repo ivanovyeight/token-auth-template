@@ -15,32 +15,43 @@ def register(request):
     if request.method == "GET":
         return render(request, 'pages/register.html')
     if request.method == "POST":
-        user = User.objects.create(username=request.POST["username"], email=request.POST["email"])
-        token = Token.objects.create(user=user, body=uuid.uuid4())
-        send_mail(
-            'Your registration is complete!',
-            f'Your registration is complete! Your invite link: https://tokenauth.ivanovyeight.club/login/token/{token.body}',
-            settings.DEFAULT_FROM_EMAIL,
-            [user.email],
-        )
-        messages.info(request, "Welcome! You'll receive email with invite link within 5 minutes!")
-        return redirect("/")
+        try:
+            user = User.objects.get(email=request.POST["email"])
+            user = User.objects.create(username=request.POST["username"], email=request.POST["email"])
+            token = Token.objects.create(user=user, body=uuid.uuid4())
+            send_mail(
+                'Your registration is complete!',
+                f'Your registration is complete! Your invite link: https://tokenauth.ivanovyeight.club/login/token/{token.body}',
+                # f'Your login link: http://localhost:8000/login/token/{token.body}',
+                settings.DEFAULT_FROM_EMAIL,
+                [user.email],
+            )
+            messages.info(request, "Welcome! You'll receive email with invite link within 5 minutes!")
+            return redirect("/")
+        except:
+            messages.info(request, "This email is already registered.")
+            return redirect("/")
 
 def send_login_link(request):
     if request.method == "GET":
         return render(request, "pages/login.html")
 
     if request.method == "POST":
-        user = User.objects.get(email=request.POST["email"])
-        token = user.token.body
-        send_mail(
-            'Login link',
-            f'Your login link: https://tokenauth.ivanovyeight.club/login/token/{token}',
-            settings.DEFAULT_FROM_EMAIL,
-            [user.email],
-        )
-        messages.info(request, "Welcome back! You'll receive email with invite link within 5 minutes!")
-        return redirect("/")
+        try:
+            user = User.objects.get(email=request.POST["email"])
+            token = user.token.body
+            send_mail(
+                'Login link',
+                f'Your login link: https://tokenauth.ivanovyeight.club/login/token/{token}',
+                # f'Your login link: http://localhost:8000/login/token/{token}',
+                settings.DEFAULT_FROM_EMAIL,
+                [user.email],
+            )
+            messages.info(request, "Welcome back! You'll receive email with invite link within 5 minutes!")
+            return redirect("/")
+        except:
+            messages.info(request, "User Not Found.")
+            return redirect("/")
 
 def login_with_token(request, token):
     if request.method == "GET":
@@ -54,12 +65,13 @@ def login_with_token(request, token):
             auth.login(request, user)
 
             if user.is_authenticated:
+                messages.info(request, f"Welcome back, {user.username}!")
                 return redirect("/")
             else:
                 return HttpResponse("Login Failed")
-
-        except Token.DoesNotExist:
-            return HttpResponse("Something Is Wrong With Link")
+        except:
+            messages.info(request, "Something Is Wrown With Provided Link. Try Again.")
+            return redirect("/")
 
 def logout(request):
     auth.logout(request)
