@@ -1,5 +1,3 @@
-Test  project assignment
-
 - mv example.setup.sh setup.sh && nano setup.sh
 - . setup.sh
 
