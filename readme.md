@@ -3,7 +3,7 @@ Test assignment project
 - mv example.setup.sh setup.sh && nano setup.sh
 - . setup.sh
 
-# Gunicorn config [gunicorn.py]
+# Gunicorn config
 - command="~/projects/token-auth-template/venv/bin/gunicorn"
 - pythonpath="~/projects/token-auth-template/config"
 - bind="0.0.0.0:8000"
